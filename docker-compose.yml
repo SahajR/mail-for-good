@@ -3,7 +3,7 @@ postgres:
 redis:
     image: redis:4.0
 app:
-    image: freecodecamp/mail-for-good:stable
+    image: sahajr/mfg:latest
     env_file: .env
     environment:
         - PSQL_USERNAME=postgres
@@ -16,4 +16,4 @@ app:
         - redis
         - postgres
     ports:
-      - "80:8080"
+      - "8890:8883"
