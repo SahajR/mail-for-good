@@ -18,14 +18,13 @@ module.exports = (passport, secret) => {
                 done(null, userExists);
             } else {
                 let newUserCreated;
-
                 db.sequelize.transaction(t => {
                     return db.user.create({
                         userID: profile.id,
                         token: token,
-                        email: profile.emails[0].value,
+                        email: profile._json.email,
                         name: profile.displayName,
-                        picture: profile._json.image.url || "http://www.pieglobal.com/wp-content/uploads/2015/10/placeholder-user.png"
+                        picture: profile._json.picture || "http://www.pieglobal.com/wp-content/uploads/2015/10/placeholder-user.png"
                     }, { transaction: t })
                         .then(newUser => {
                             newUserCreated = newUser;

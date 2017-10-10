@@ -5,8 +5,6 @@ module.exports = (app, passport) => {
     res.sendFile(path.resolve('public/index.html'));
   });
 
-  // Redirect user to Google for authentication. When complete, Google will return the user to /auth/google/return
-  // Ref https://developers.google.com/identity/protocols/OpenIDConnect#scope-param
   app.get('/auth/auth0', passport.authenticate('auth0', {
     scope: ['openid profile']
   }));
