@@ -5,7 +5,7 @@ module.exports = {
     if (req.isAuthenticated()) {
       return next();
     } else {
-      res.redirect('/login');
+      res.redirect('/auth/auth0');
     }
   },
   // Check user accessing API route is authenticated
