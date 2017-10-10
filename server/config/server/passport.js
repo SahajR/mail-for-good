@@ -2,7 +2,7 @@ const passport = require('passport');
 
 const secrets = require('../secrets');
 const db = require('../../models');
-const Google = require('../passport/google');
+const Auth0 = require('../passport/auth0');
 
 module.exports = () => {
   passport.serializeUser(function(user, done) {
@@ -21,5 +21,5 @@ module.exports = () => {
   ///////////////////////////////
   /* AUTHENTICATION STRATEGIES */
   ///////////////////////////////
-  Google(passport, secrets.google);
+  Auth0(passport, secrets.auth0);
 };

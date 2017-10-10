@@ -19,7 +19,7 @@ module.exports = (passport, secret) => {
 
         db.sequelize.transaction(t => {
           return db.user.create({
-            googleId: profile.id,
+            userId: profile.id,
             token: token,
             email: profile._json.emails[0].value,
             name: profile.displayName,
