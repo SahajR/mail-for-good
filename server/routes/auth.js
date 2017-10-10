@@ -12,8 +12,14 @@ module.exports = (app, passport) => {
   }));
 
   // Verify authentication with Passport. Send to /
-  app.get('/auth/auth0/callback', passport.authenticate('auth0', {
-    successRedirect: '/', //TODO: Change this to an authenticated url e.g. /a or /account. Can also redirect simply to / using a separate workflow
-    failureRedirect: '/login'
-  }));
+  app.get('/auth/auth0/callback',
+      passport.authenticate('auth0', { failureRedirect: '/login' }),
+      (req, res) => {
+          if (!req.user) {
+              throw new Error('user null');
+          }
+          res.redirect("/");
+      }
+  );
+
 };

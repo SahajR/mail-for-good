@@ -8,7 +8,7 @@ module.exports = (passport, secret) => {
         clientID,
         clientSecret,
         callbackURL
-    }, (token, tokenSecret, profile, done) => {
+    }, (token, tokenSecret, _, profile, done) => {
         db.user.findOne({
             where: {
                 userID: profile.id
