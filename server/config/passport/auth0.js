@@ -9,9 +9,10 @@ module.exports = (passport, secret) => {
         clientSecret,
         callbackURL
     }, (token, tokenSecret, _, profile, done) => {
+        const userID = profile._json.user_id || profile.id;
         db.user.findOne({
             where: {
-                userID: profile.id
+                userID
             }
         }).then(userExists => {
             if (userExists) {
@@ -20,7 +21,7 @@ module.exports = (passport, secret) => {
                 let newUserCreated;
                 db.sequelize.transaction(t => {
                     return db.user.create({
-                        userID: profile.id,
+                        userID,
                         token: token,
                         email: profile._json.email,
                         name: profile._json.username || profile.displayName,
