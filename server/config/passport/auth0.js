@@ -23,7 +23,7 @@ module.exports = (passport, secret) => {
                         userID: profile.id,
                         token: token,
                         email: profile._json.email,
-                        name: profile.displayName,
+                        name: profile._json.username || profile.displayName,
                         picture: profile._json.picture || "http://www.pieglobal.com/wp-content/uploads/2015/10/placeholder-user.png"
                     }, { transaction: t })
                         .then(newUser => {
