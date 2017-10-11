@@ -11,7 +11,7 @@ module.exports = (app, passport) => {
 
   // Verify authentication with Passport. Send to /
   app.get('/auth/auth0/callback',
-      passport.authenticate('auth0', { failureRedirect: '/login' }),
+      passport.authenticate('auth0', { failureRedirect: '/auth/auth0' }),
       (req, res) => {
           if (!req.user) {
               throw new Error('user null');
