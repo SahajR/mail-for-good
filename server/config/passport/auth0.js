@@ -9,7 +9,8 @@ module.exports = (passport, secret) => {
         clientSecret,
         callbackURL
     }, (token, tokenSecret, _, profile, done) => {
-        const userID = profile._json.user_id || profile.id;
+        // Prefer email as ID over profileID from different providers if it exists
+        const userID = profile._json.email || profile._json.sub;
         db.user.findOne({
             where: {
                 userID
@@ -22,9 +23,10 @@ module.exports = (passport, secret) => {
                 db.sequelize.transaction(t => {
                     return db.user.create({
                         userID,
-                        token: token,
+                        token,
                         email: profile._json.email,
-                        name: profile._json.username || profile.displayName,
+                        // Nickname is more meaningful in the Auth0 profile response
+                        name: profile._json.nickname || profile._json.name,
                         picture: profile._json.picture || "http://www.pieglobal.com/wp-content/uploads/2015/10/placeholder-user.png"
                     }, { transaction: t })
                         .then(newUser => {
