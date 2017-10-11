@@ -34,7 +34,7 @@ module.exports = (app, passport, io, redis) => {
 
   app.get('/logout', isAuth, (req, res) => {
     req.logout();
-    res.redirect('/login');
+    res.redirect('/auth/auth0');
   });
 
   ////////////////////
